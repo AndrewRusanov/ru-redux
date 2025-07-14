@@ -18,6 +18,7 @@ import './MainApp.scss'
 
 export const MainApp = () => {
   const { contacts, groupContacts } = useAppSelector(state => state)
+
   const contactsState = useState<ContactDto[]>(DATA_CONTACT)
   const favoriteContactsState = useState<FavoriteContactsDto>([
     DATA_CONTACT[0].id,
@@ -26,9 +27,6 @@ export const MainApp = () => {
     DATA_CONTACT[3].id,
   ])
   const groupContactsState = useState<GroupContactsDto[]>(DATA_GROUP_CONTACT)
-
-  console.log('#### contacts ####:', contacts)
-  console.log('####:', groupContacts)
 
   return (
     <ThemeProvider
