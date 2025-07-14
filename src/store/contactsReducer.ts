@@ -1,6 +1,6 @@
 import { ContactDto } from 'src/types/dto/ContactDto'
 import { DATA_CONTACT } from '../__data__'
-import { ContactsActions, SET_CONTACTS } from './actions'
+import { ContactsActions, SET_CONTACTS } from './contactsActions'
 
 interface InitialContactsState {
   contactsState: ContactDto[]
