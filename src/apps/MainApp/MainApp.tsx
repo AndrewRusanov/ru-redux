@@ -10,14 +10,16 @@ import {
   GroupListPage,
   GroupPage,
 } from 'src/pages'
-import { useAppSelector } from 'src/store/hooks'
 import { ContactDto } from 'src/types/dto/ContactDto'
 import { FavoriteContactsDto } from 'src/types/dto/FavoriteContactsDto'
 import { GroupContactsDto } from 'src/types/dto/GroupContactsDto'
 import './MainApp.scss'
 
 export const MainApp = () => {
-  const { contacts, groupContacts } = useAppSelector(state => state)
+  //const { contactsState, favoriteState } = useAppSelector(
+  //  state => state.contacts
+  //)
+  //const { groupContactsState } = useAppSelector(state => state.groupContacts)
 
   const contactsState = useState<ContactDto[]>(DATA_CONTACT)
   const favoriteContactsState = useState<FavoriteContactsDto>([
@@ -36,27 +38,9 @@ export const MainApp = () => {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Layout />}>
-            <Route
-              index
-              element={
-                <ContactListPage
-                  contactsState={contactsState}
-                  favoriteContactsState={favoriteContactsState}
-                  groupContactsState={groupContactsState}
-                />
-              }
-            />
+            <Route index element={<ContactListPage />} />
             <Route path='contact'>
-              <Route
-                index
-                element={
-                  <ContactListPage
-                    contactsState={contactsState}
-                    favoriteContactsState={favoriteContactsState}
-                    groupContactsState={groupContactsState}
-                  />
-                }
-              />
+              <Route index element={<ContactListPage />} />
               <Route
                 path=':contactId'
                 element={
