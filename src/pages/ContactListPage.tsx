@@ -1,23 +1,27 @@
-import { memo } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { ContactCard } from 'src/components/ContactCard'
 import { FilterForm, FilterFormValues } from 'src/components/FilterForm'
-import { setContacts } from 'src/store/contactsActions'
-import { useAppDispatch, useAppSelector } from 'src/store/hooks'
+import { useAppSelector } from 'src/store/hooks'
 import { ContactDto } from 'src/types/dto/ContactDto'
 
 export const ContactListPage = memo(() => {
   const { contactsState } = useAppSelector(state => state.contacts)
   const { groupContactsState } = useAppSelector(state => state.groupContacts)
-  const dispatch = useAppDispatch()
+  const [filteredContacts, setFilteredContacts] =
+    useState<ContactDto[]>(contactsState)
+
+  useEffect(() => {
+    setFilteredContacts(contactsState)
+  }, [contactsState])
 
   const onSubmit = (fv: Partial<FilterFormValues>) => {
-    let findContacts: ContactDto[] = contactsState
+    let findContacts = contactsState
 
     if (fv.name) {
       const fvName = fv.name.toLowerCase()
-      findContacts = findContacts.filter(
-        ({ name }) => name.toLowerCase().indexOf(fvName) > -1
+      findContacts = findContacts.filter(({ name }) =>
+        name.toLowerCase().includes(fvName)
       )
     }
 
@@ -33,7 +37,7 @@ export const ContactListPage = memo(() => {
       }
     }
 
-    dispatch(setContacts(findContacts))
+    setFilteredContacts(findContacts)
   }
 
   return (
@@ -43,7 +47,7 @@ export const ContactListPage = memo(() => {
       </Col>
       <Col>
         <Row xxl={4} className='g-4'>
-          {contactsState.map(contact => (
+          {filteredContacts.map(contact => (
             <Col key={contact.id}>
               <ContactCard contact={contact} withLink />
             </Col>

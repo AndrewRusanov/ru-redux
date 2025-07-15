@@ -14,7 +14,9 @@ export const FavoritListPage = memo(() => {
     const getNewContacts = () =>
       contactsState.filter(({ id }) => favoriteState.includes(id))
     dispatch(setContacts(getNewContacts()))
-  }, [contactsState, favoriteState])
+  }, [contactsState, favoriteState, dispatch])
+
+  console.log('####FavoritListPage:', contactsState)
 
   return (
     <Row xxl={4} className='g-4'>
