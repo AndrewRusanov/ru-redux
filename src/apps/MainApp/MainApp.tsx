@@ -10,18 +10,17 @@ import {
   GroupPage,
 } from 'src/pages'
 import { fetchContacts } from 'src/store/contactsActions'
-import { useAppDispatch, useAppSelector } from 'src/store/hooks'
+import { fetchGroupContacts } from 'src/store/groupContactsActions'
+import { useAppDispatch } from 'src/store/hooks'
 import './MainApp.scss'
 
 export const MainApp = () => {
   const dispatch = useAppDispatch()
-  const { contactsState } = useAppSelector(state => state.contacts)
 
   useEffect(() => {
     dispatch(fetchContacts())
+    dispatch(fetchGroupContacts())
   }, [dispatch])
-
-  console.log('####:', contactsState)
 
   return (
     <ThemeProvider
