@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { ThemeProvider } from 'react-bootstrap'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Layout } from 'src/components/Layout'
@@ -8,9 +9,20 @@ import {
   GroupListPage,
   GroupPage,
 } from 'src/pages'
+import { fetchContacts } from 'src/store/contactsActions'
+import { useAppDispatch, useAppSelector } from 'src/store/hooks'
 import './MainApp.scss'
 
 export const MainApp = () => {
+  const dispatch = useAppDispatch()
+  const { contactsState } = useAppSelector(state => state.contacts)
+
+  useEffect(() => {
+    dispatch(fetchContacts())
+  }, [dispatch])
+
+  console.log('####:', contactsState)
+
   return (
     <ThemeProvider
       breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}

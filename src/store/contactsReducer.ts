@@ -1,6 +1,10 @@
 import { ContactDto } from 'src/types/dto/ContactDto'
-import { DATA_CONTACT } from '../__data__'
-import { ContactsActions, SET_CONTACTS } from './contactsActions'
+import {
+  ContactsActions,
+  GET_CONTACTS,
+  SET_CONTACTS,
+  SET_FAVORIT_CONTACTS,
+} from './contactsActions'
 
 interface InitialContactsState {
   contactsState: ContactDto[]
@@ -8,8 +12,8 @@ interface InitialContactsState {
 }
 
 export const INITIAL_CONTACTS: InitialContactsState = {
-  contactsState: DATA_CONTACT,
-  favoriteState: DATA_CONTACT.map(contact => contact.id).slice(0, 4),
+  contactsState: [],
+  favoriteState: [],
 }
 
 export function contactsReducer(
@@ -18,7 +22,11 @@ export function contactsReducer(
 ) {
   switch (action.type) {
     case SET_CONTACTS:
-      return { ...state, contacts: action.payload.contacts }
+      return { ...state, contactsState: action.payload.contacts }
+    case GET_CONTACTS:
+      return { ...state, contactsState: action.payload.contacts }
+    case SET_FAVORIT_CONTACTS:
+      return { ...state, favoriteState: action.payload.favoritID }
 
     default:
       break
