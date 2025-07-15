@@ -9,7 +9,9 @@ interface SetGroupContacts {
   }
 }
 
-export function setContacts(newContacts: GroupContactsDto[]): SetGroupContacts {
+export function setGroupContacts(
+  newContacts: GroupContactsDto[]
+): SetGroupContacts {
   return { type: SET_GROUP_CONTACTS, payload: { groupContacts: newContacts } }
 }
 

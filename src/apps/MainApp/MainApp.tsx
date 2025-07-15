@@ -1,7 +1,5 @@
-import { useState } from 'react'
 import { ThemeProvider } from 'react-bootstrap'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { DATA_CONTACT, DATA_GROUP_CONTACT } from 'src/__data__'
 import { Layout } from 'src/components/Layout'
 import {
   ContactListPage,
@@ -10,26 +8,9 @@ import {
   GroupListPage,
   GroupPage,
 } from 'src/pages'
-import { ContactDto } from 'src/types/dto/ContactDto'
-import { FavoriteContactsDto } from 'src/types/dto/FavoriteContactsDto'
-import { GroupContactsDto } from 'src/types/dto/GroupContactsDto'
 import './MainApp.scss'
 
 export const MainApp = () => {
-  //const { contactsState, favoriteState } = useAppSelector(
-  //  state => state.contacts
-  //)
-  //const { groupContactsState } = useAppSelector(state => state.groupContacts)
-
-  const contactsState = useState<ContactDto[]>(DATA_CONTACT)
-  const favoriteContactsState = useState<FavoriteContactsDto>([
-    DATA_CONTACT[0].id,
-    DATA_CONTACT[1].id,
-    DATA_CONTACT[2].id,
-    DATA_CONTACT[3].id,
-  ])
-  const groupContactsState = useState<GroupContactsDto[]>(DATA_GROUP_CONTACT)
-
   return (
     <ThemeProvider
       breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
@@ -45,27 +26,9 @@ export const MainApp = () => {
             </Route>
             <Route path='groups'>
               <Route index element={<GroupListPage />} />
-              <Route
-                path=':groupId'
-                element={
-                  <GroupPage
-                    contactsState={contactsState}
-                    favoriteContactsState={favoriteContactsState}
-                    groupContactsState={groupContactsState}
-                  />
-                }
-              />
+              <Route path=':groupId' element={<GroupPage />} />
             </Route>
-            <Route
-              path='favorit'
-              element={
-                <FavoritListPage
-                  contactsState={contactsState}
-                  favoriteContactsState={favoriteContactsState}
-                  groupContactsState={groupContactsState}
-                />
-              }
-            />
+            <Route path='favorit' element={<FavoritListPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
