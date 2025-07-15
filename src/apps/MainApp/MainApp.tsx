@@ -41,16 +41,7 @@ export const MainApp = () => {
             <Route index element={<ContactListPage />} />
             <Route path='contact'>
               <Route index element={<ContactListPage />} />
-              <Route
-                path=':contactId'
-                element={
-                  <ContactPage
-                    contactsState={contactsState}
-                    favoriteContactsState={favoriteContactsState}
-                    groupContactsState={groupContactsState}
-                  />
-                }
-              />
+              <Route path=':contactId' element={<ContactPage />} />
             </Route>
             <Route path='groups'>
               <Route
