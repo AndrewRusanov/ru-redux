@@ -1,7 +1,10 @@
-import { contactsSlice } from './slice'
+import { contactsApiSlice, contactsSlice } from './slice'
+
+export const contactsApiReducer = contactsApiSlice.reducer
+export const contactsApiReducerPath = contactsApiSlice.reducerPath
+export const contactsApiMiddleware = contactsApiSlice.middleware
+
+export const { useGetContactsQuery } = contactsApiSlice
 
 export const contactsReducer = contactsSlice.reducer
-export const contactsReducerPath = contactsSlice.reducerPath
-export const contactsMiddleware = contactsSlice.middleware
-
-export const { useGetContactsQuery } = contactsSlice
+export const { setContacts, setFavoriteContacts } = contactsSlice.actions

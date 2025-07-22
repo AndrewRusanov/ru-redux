@@ -1,27 +1,32 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import {
-  contactsMiddleware,
-  contactsReducerPath,
-  contactsReducer as newContactsReducer,
+  contactsApiMiddleware,
+  contactsApiReducer,
+  contactsApiReducerPath,
+  contactsReducer,
 } from './contacts'
-import { ContactsActions } from './contactsActions'
-import { contactsReducer } from './contactsReducer'
-import { GroupContactsActions } from './groupContactsActions'
-import { groupContactsReducer } from './groupContactsReducer'
+import {
+  groupContactsApiMiddleware,
+  groupContactsApiReducer,
+  groupContactsApiReducerPath,
+  groupContactsReducer,
+} from './groupContacts'
 
 const rootReducer = combineReducers({
   contacts: contactsReducer,
   groupContacts: groupContactsReducer,
-  [contactsReducerPath]: newContactsReducer,
+  [contactsApiReducerPath]: contactsApiReducer,
+  [groupContactsApiReducerPath]: groupContactsApiReducer,
 })
 
 export const store = configureStore({
   reducer: rootReducer,
   middleware(getDefaultMiddleware) {
-    return getDefaultMiddleware().concat([contactsMiddleware])
+    return getDefaultMiddleware().concat([
+      contactsApiMiddleware,
+      groupContactsApiMiddleware,
+    ])
   },
 })
 
 export type RootState = ReturnType<typeof rootReducer>
-
-export type ProjectActions = ContactsActions | GroupContactsActions

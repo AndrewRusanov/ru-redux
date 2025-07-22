@@ -5,20 +5,16 @@ import { useAppSelector } from 'src/store/hooks'
 import { ContactDto } from 'src/types/dto/ContactDto'
 
 export const FavoritListPage = memo(() => {
-  const { contactsState, favoriteState } = useAppSelector(
-    state => state.contacts
-  )
-  const [contacts, setContacts] = useState<ContactDto[]>([])
+  const { contacts, favorite } = useAppSelector(state => state.contacts)
+  const [contactsState, setContactsState] = useState<ContactDto[]>([])
 
   useEffect(() => {
-    setContacts(() =>
-      contactsState.filter(({ id }) => favoriteState.includes(id))
-    )
-  }, [contactsState, favoriteState])
+    setContactsState(() => contacts.filter(({ id }) => favorite.includes(id)))
+  }, [contacts, favorite])
 
   return (
     <Row xxl={4} className='g-4'>
-      {contacts.map(contact => (
+      {contactsState.map(contact => (
         <Col key={contact.id}>
           <ContactCard contact={contact} withLink />
         </Col>

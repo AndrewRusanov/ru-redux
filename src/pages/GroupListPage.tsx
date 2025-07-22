@@ -4,13 +4,13 @@ import { GroupContactsCard } from 'src/components/GroupContactsCard'
 import { useAppSelector } from 'src/store/hooks'
 
 export const GroupListPage = memo(() => {
-  const { groupContactsState } = useAppSelector(state => state.groupContacts)
+  const { groupContacts } = useAppSelector(state => state.groupContacts)
 
   return (
     <Row xxl={4}>
-      {groupContactsState.map(groupContacts => (
-        <Col key={groupContacts.id}>
-          <GroupContactsCard groupContacts={groupContacts} withLink />
+      {groupContacts.map(groupContact => (
+        <Col key={groupContact.id}>
+          <GroupContactsCard groupContacts={groupContact} withLink />
         </Col>
       ))}
     </Row>

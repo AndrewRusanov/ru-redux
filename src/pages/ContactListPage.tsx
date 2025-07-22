@@ -6,17 +6,18 @@ import { useAppSelector } from 'src/store/hooks'
 import { ContactDto } from 'src/types/dto/ContactDto'
 
 export const ContactListPage = memo(() => {
-  const { contactsState } = useAppSelector(state => state.contacts)
-  const { groupContactsState } = useAppSelector(state => state.groupContacts)
+  const { contacts } = useAppSelector(state => state.contacts)
+  const { groupContacts } = useAppSelector(state => state.groupContacts)
+
   const [filteredContacts, setFilteredContacts] =
-    useState<ContactDto[]>(contactsState)
+    useState<ContactDto[]>(contacts)
 
   useEffect(() => {
-    setFilteredContacts(contactsState)
-  }, [contactsState])
+    setFilteredContacts(contacts)
+  }, [contacts])
 
   const onSubmit = (fv: Partial<FilterFormValues>) => {
-    let findContacts = contactsState
+    let findContacts = contacts
 
     if (fv.name) {
       const fvName = fv.name.toLowerCase()
@@ -26,13 +27,11 @@ export const ContactListPage = memo(() => {
     }
 
     if (fv.groupId) {
-      const groupContacts = groupContactsState.find(
-        ({ id }) => id === fv.groupId
-      )
+      const newGroupContacts = groupContacts.find(({ id }) => id === fv.groupId)
 
-      if (groupContacts) {
+      if (newGroupContacts) {
         findContacts = findContacts.filter(({ id }) =>
-          groupContacts.contactIds.includes(id)
+          newGroupContacts.contactIds.includes(id)
         )
       }
     }

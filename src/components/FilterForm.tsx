@@ -13,7 +13,7 @@ interface FilterFormProps extends FormikConfig<Partial<FilterFormValues>> {}
 
 export const FilterForm = memo<FilterFormProps>(
   ({ onSubmit, initialValues = {} }) => {
-    const { groupContactsState } = useAppSelector(state => state.groupContacts)
+    const { groupContacts } = useAppSelector(state => state.groupContacts)
 
     return (
       <Formik initialValues={initialValues} onSubmit={onSubmit}>
@@ -39,9 +39,9 @@ export const FilterForm = memo<FilterFormProps>(
                   onChange={handleChange}
                 >
                   <option>Open this select menu</option>
-                  {groupContactsState.map(groupContacts => (
-                    <option value={groupContacts.id} key={groupContacts.id}>
-                      {groupContacts.name}
+                  {groupContacts.map(groupContact => (
+                    <option value={groupContact.id} key={groupContact.id}>
+                      {groupContact.name}
                     </option>
                   ))}
                 </Form.Select>
