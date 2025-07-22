@@ -33,7 +33,7 @@ export const MainApp = () => {
     dispatch(setContacts(contacts))
     dispatch(setFavoriteContacts(favoriteContacts))
     dispatch(setGroupContacts(groupContacts))
-  }, [])
+  }, [contactsData, groupContactsData])
 
   return (
     <ThemeProvider
