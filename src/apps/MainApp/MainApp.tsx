@@ -9,18 +9,21 @@ import {
   GroupListPage,
   GroupPage,
 } from 'src/pages'
-import { fetchContacts } from 'src/store/contactsActions'
+import { useGetContactsQuery } from 'src/store/contacts'
 import { fetchGroupContacts } from 'src/store/groupContactsActions'
 import { useAppDispatch } from 'src/store/hooks'
 import './MainApp.scss'
 
 export const MainApp = () => {
+  const contactsData = useGetContactsQuery()
+  const contacts = contactsData.data ?? []
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(fetchContacts())
     dispatch(fetchGroupContacts())
   }, [dispatch])
+
+  console.log('####:', contacts)
 
   return (
     <ThemeProvider
